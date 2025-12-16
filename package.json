@@ -1,0 +1,29 @@
+{
+  "name": "certifi-stacks",
+  "version": "1.0.0",
+  "description": "Blockchain-Powered Credential Verification Platform on Stacks",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest --run",
+    "test:report": "vitest --run --reporter=verbose",
+    "deploy": "node scripts/deploy.js",
+    "interact": "node scripts/interact.js"
+  },
+  "keywords": [
+    "stacks",
+    "blockchain",
+    "credentials",
+    "verification"
+  ],
+  "author": "Certifi Team",
+  "license": "ISC",
+  "devDependencies": {
+    "vitest": "^1.0.0"
+  },
+  "dependencies": {
+    "@stacks/transactions": "^6.13.0",
+    "@stacks/network": "^6.13.0",
+    "dotenv": "^16.3.1"
+  }
+}

@@ -11,7 +11,9 @@
     "interact": "node scripts/interact.js",
     "mainnet-interact": "node scripts/mainnet-interact.js",
     "write": "node scripts/write-functions.js",
-    "addresses": "node scripts/generate-test-addresses.js"
+    "addresses": "node scripts/generate-test-addresses.js",
+    "webhook": "node scripts/webhook-server.js",
+    "chainhooks": "node scripts/chainhooks-client.js"
   },
   "keywords": [
     "stacks",
@@ -27,6 +29,7 @@
   "dependencies": {
     "@stacks/transactions": "^6.13.0",
     "@stacks/network": "^6.13.0",
+    "@hirosystems/chainhooks-client": "^0.5.0",
     "dotenv": "^16.3.1"
   }
 }

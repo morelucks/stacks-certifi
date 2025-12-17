@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "networks": {
+    "testnet": {
+      "chainhooks": [
+        {
+          "uuid": "credential-issued",
+          "predicate": {
+            "scope": "txs",
+            "operation": "contract_call",
+            "contract-identifier": "SP2J6ZY48GV6RRZRVXF44FYRSTCG9KJDM3NZ8KXY.certifi-credentials",
+            "method": "issue-credential"
+          },
+          "actions": {
+            "http_post": {
+              "url": "http://localhost:3000/webhooks/credential-issued",
+              "authorization_header": "Bearer your-secret-key"
+            }
+          }
+        },
+        {
+          "uuid": "credential-verified",
+          "predicate": {
+            "scope": "txs",
+            "operation": "contract_call",
+            "contract-identifier": "SP2J6ZY48GV6RRZRVXF44FYRSTCG9KJDM3NZ8KXY.certifi-credentials",
+            "method": "verify-credential"
+          },
+          "actions": {
+            "http_post": {
+              "url": "http://localhost:3000/webhooks/credential-verified",
+              "authorization_header": "Bearer your-secret-key"
+            }
+          }
+        },
+        {
+          "uuid": "credential-revoked",
+          "predicate": {
+            "scope": "txs",
+            "operation": "contract_call",
+            "contract-identifier": "SP2J6ZY48GV6RRZRVXF44FYRSTCG9KJDM3NZ8KXY.certifi-credentials",
+            "method": "revoke-credential"
+          },
+          "actions": {
+            "http_post": {
+              "url": "http://localhost:3000/webhooks/credential-revoked",
+              "authorization_header": "Bearer your-secret-key"
+            }
+          }
+        },
+        {
+          "uuid": "institution-registered",
+          "predicate": {
+            "scope": "txs",
+            "operation": "contract_call",
+            "contract-identifier": "SP2J6ZY48GV6RRZRVXF44FYRSTCG9KJDM3NZ8KXY.certifi-institutions",
+            "method": "register-institution"
+          },
+          "actions": {
+            "http_post": {
+              "url": "http://localhost:3000/webhooks/institution-registered",
+              "authorization_header": "Bearer your-secret-key"
+            }
+          }
+        }
+      ]
+    },
+    "mainnet": {
+      "chainhooks": [
+        {
+          "uuid": "credential-issued-mainnet",
+          "predicate": {
+            "scope": "txs",
+            "operation": "contract_call",
+            "contract-identifier": "SM2J6ZY48GV6RRZRVXF44FYRSTCG9KJDM3NZ8KXY.certifi-credentials",
+            "method": "issue-credential"
+          },
+          "actions": {
+            "http_post": {
+              "url": "https://your-domain.com/webhooks/credential-issued",
+              "authorization_header": "Bearer your-secret-key"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

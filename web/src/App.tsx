@@ -1,21 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { useConnect } from '@stacks/connect-react';
 import Dashboard from './components/Dashboard';
 import IssueCredential from './components/IssueCredential';
 import VerifyCredential from './components/VerifyCredential';
 import Statistics from './components/Statistics';
+import WalletConnect from './components/WalletConnect';
 import './App.css';
 
 function App() {
-  const { isUserSignedIn, userData } = useConnect();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [userAddress, setUserAddress] = useState<string>('');
+  const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    if (isUserSignedIn && userData?.profile?.stxAddress) {
-      setUserAddress(userData.profile.stxAddress.testnet);
+    // Check if wallet is connected from localStorage
+    const savedAddress = localStorage.getItem('userAddress');
+    if (savedAddress) {
+      setUserAddress(savedAddress);
+      setIsConnected(true);
     }
-  }, [isUserSignedIn, userData]);
+  }, []);
+
+  const handleWalletConnect = (address: string) => {
+    setUserAddress(address);
+    setIsConnected(true);
+    localStorage.setItem('userAddress', address);
+  };
+
+  const handleDisconnect = () => {
+    setUserAddress('');
+    setIsConnected(false);
+    localStorage.removeItem('userAddress');
+  };
 
   return (
     <div className="app">
@@ -25,7 +40,7 @@ function App() {
           <p>Blockchain-Powered Credential Verification</p>
         </div>
         <div className="header-status">
-          {isUserSignedIn ? (
+          {isConnected ? (
             <div className="user-info">
               <span className="address">{userAddress.slice(0, 10)}...</span>
               <span className="status">✅ Connected</span>
@@ -64,11 +79,8 @@ function App() {
       </nav>
 
       <main className="main">
-        {!isUserSignedIn ? (
-          <div className="connect-prompt">
-            <h2>Connect Your Wallet</h2>
-            <p>Please connect your Stacks wallet to use Certifi</p>
-          </div>
+        {!isConnected ? (
+          <WalletConnect onConnect={handleWalletConnect} />
         ) : (
           <>
             {activeTab === 'dashboard' && <Dashboard userAddress={userAddress} />}

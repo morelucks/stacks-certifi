@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import WalletStatus from './WalletStatus';
 import './Dashboard.css';
 
 interface DashboardProps {
@@ -60,6 +61,8 @@ function Dashboard({ userAddress }: DashboardProps) {
     <div className="dashboard">
       <h2>Dashboard</h2>
       <p className="subtitle">Real-time Certifi Statistics</p>
+      
+      <WalletStatus />
 
       <div className="stats-grid">
         <div className="stat-card">

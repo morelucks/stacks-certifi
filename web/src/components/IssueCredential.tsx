@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useAccount } from 'wagmi';
+import EvmIssueCredential from './EvmIssueCredential';
+import { getContractAddress } from '../config/contracts';
 import './IssueCredential.css';
 
 interface IssueCredentialProps {
@@ -6,6 +9,7 @@ interface IssueCredentialProps {
 }
 
 function IssueCredential({ userAddress }: IssueCredentialProps) {
+  const { isConnected: isEvmConnected } = useAccount();
   const [formData, setFormData] = useState({
     studentAddress: '',
     institutionId: '0',
@@ -72,6 +76,17 @@ function IssueCredential({ userAddress }: IssueCredentialProps) {
     <div className="issue-credential">
       <h2>Issue Credential</h2>
       <p className="subtitle">Create a new credential on the blockchain</p>
+
+      {isEvmConnected && (
+        <div style={{ marginBottom: '30px', padding: '15px', backgroundColor: '#e3f2fd', borderRadius: '4px' }}>
+          <h3>EVM Wallet Connected</h3>
+          <EvmIssueCredential contractAddress={getContractAddress()} />
+        </div>
+      )}
+
+      <div style={{ marginBottom: '20px', padding: '10px', borderTop: '2px solid #ddd' }}>
+        <h3>Stacks Wallet</h3>
+      </div>
 
       <form onSubmit={handleSubmit} className="form">
         <div className="form-group">

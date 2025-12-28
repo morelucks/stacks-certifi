@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useAccount } from 'wagmi';
+import EvmCredentialStats from './EvmCredentialStats';
 import './Statistics.css';
 
 interface EventData {
@@ -9,9 +11,12 @@ interface EventData {
 }
 
 function Statistics() {
+  const { isConnected } = useAccount();
   const [events, setEvents] = useState<EventData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // TODO: Replace with actual contract address
+  const EVM_CONTRACT_ADDRESS = '0x0000000000000000000000000000000000000000' as `0x${string}`;
 
   useEffect(() => {
     fetchEvents();
@@ -95,6 +100,10 @@ function Statistics() {
     <div className="statistics">
       <h2>Event Timeline</h2>
       <p className="subtitle">Recent Certifi activity</p>
+
+      {isConnected && (
+        <EvmCredentialStats contractAddress={EVM_CONTRACT_ADDRESS} />
+      )}
 
       <div className="timeline">
         {events.length > 0 ? (

@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useAccount } from 'wagmi';
+import EvmVerifyCredential from './EvmVerifyCredential';
+import { getContractAddress } from '../config/contracts';
 import './VerifyCredential.css';
 
 function VerifyCredential() {

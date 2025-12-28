@@ -47,6 +47,17 @@ function VerifyCredential() {
       <h2>Verify Credential</h2>
       <p className="subtitle">Verify a credential by its hash</p>
 
+      {isEvmConnected && (
+        <div style={{ marginBottom: '30px', padding: '15px', backgroundColor: '#e3f2fd', borderRadius: '4px' }}>
+          <h3>EVM Wallet Connected</h3>
+          <EvmVerifyCredential contractAddress={getContractAddress()} />
+        </div>
+      )}
+
+      <div style={{ marginBottom: '20px', padding: '10px', borderTop: '2px solid #ddd' }}>
+        <h3>Stacks Wallet</h3>
+      </div>
+
       <form onSubmit={handleVerify} className="form">
         <div className="form-group">
           <label htmlFor="credentialHash">Credential Hash *</label>
